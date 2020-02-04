@@ -7,7 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,6 +24,7 @@ public class Crawler {
 
 	public Crawler() {
 		this.index = new Index();
+		this.indexInv = new IndexInverse();
 
 		this.files = new ArrayList<Path>();
 		Path dir = Paths.get("fichiers/corpusRI");
@@ -49,7 +52,6 @@ public class Crawler {
 
 	public void lireFichiers() {
 		for (Path path : this.files) {
-			List<String> mots = new ArrayList<>();
 			try {
 
 				File fXmlFile = new File(path.toString());
@@ -81,13 +83,33 @@ public class Crawler {
 
 				}
 				
+				Document document;
+				
 				try {
-					this.index.ajouterDocument(new Document(headList.item(0).getTextContent(), corps));
-
-				} catch (NullPointerException e) {
-					this.index.ajouterDocument(new Document(premierP, corps));
-
+					document = new Document(headList.item(0).getTextContent(), corps);
+				} catch(NullPointerException e) {
+					document = new Document(premierP, corps);
 				}
+			
+				
+				Set<String> motsCle = new HashSet<>();
+				List<String> mots = Outils.split(document.getTitre());
+				mots.addAll(Outils.split(document.getCorp())); 
+				mots = Outils.removePonctuation(mots);
+				mots = Outils.removeStopWord(mots);
+				motsCle.addAll(mots);
+				for (String motCle : motsCle) {
+					this.indexInv.ajouterTerme(motCle, document);
+					//System.out.println(this.indexInv.toString());
+					
+					if(document.getMapMots().keySet().contains(motCle))
+						document.getMapMots().get(motCle).incrementeOccurence();
+					else
+						document.getMapMots().put(motCle, new Keyword(motsCle.size()));
+				}
+				
+				this.index.ajouterDocument(document);
+				
 				
 				
 			} catch (Exception e) {
@@ -97,6 +119,7 @@ public class Crawler {
 
 			}
 		}
+		
 	}
 
 	public Index getIndex() {

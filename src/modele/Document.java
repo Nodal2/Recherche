@@ -11,17 +11,17 @@ public class Document {
 	private String titre;
 	private String corps;
 	
-	private Map<String, Keyword> frequences;
+	private Map<String, Keyword> mapMots;
 	
 	public Document(String t, String c) {
-		this.frequences = new HashMap<String, Keyword>();
+		this.mapMots = new HashMap<String, Keyword>();
 		this.titre = t;
 		this.corps = c;
 		ajouterMots();
 	}
 	
 	public void ajouterFrequence(String mot, Keyword motCle) {
-		this.frequences.put(mot, motCle);
+		this.mapMots.put(mot, motCle);
 	}
 	
 	public String getTitre() {
@@ -32,6 +32,10 @@ public class Document {
 		return this.corps;
 	}
 	
+	public Map<String, Keyword> getMapMots() {
+		return mapMots;
+	}
+	
 	public void ajouterMots() {
 		Set<String> motsCle = new HashSet<>();
 		List<String> mots = Outils.split(this.titre);
@@ -40,10 +44,10 @@ public class Document {
 		mots = Outils.removeStopWord(mots);
 		motsCle.addAll(mots);
 		for (String motCle : motsCle) {
-			if(this.frequences.keySet().contains(motCle))
-				this.frequences.get(motCle).incrementeOccurence();
+			if(this.mapMots.keySet().contains(motCle))
+				this.mapMots.get(motCle).incrementeOccurence();
 			else
-				this.frequences.put(motCle, new Keyword());
+				this.mapMots.put(motCle, new Keyword(motsCle.size()));
 		}
 	}
 	
