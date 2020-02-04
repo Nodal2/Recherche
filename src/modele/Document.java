@@ -36,12 +36,15 @@ public class Document {
 		Set<String> motsCle = new HashSet<>();
 		List<String> mots = Outils.split(this.titre);
 		mots.addAll(Outils.split(this.corps)); 
-		mots = Outils.removeStopWord(mots);
 		mots = Outils.removePonctuation(mots);
+		mots = Outils.removeStopWord(mots);
 		motsCle.addAll(mots);
 		System.out.println(mots);
 		for (String motCle : motsCle) {
-			this.frequences.put(motCle, null);
+			if(this.frequences.keySet().contains(motCle))
+				this.frequences.get(motCle).incrementeOccurence();
+			else
+				this.frequences.put(motCle, new Keyword());
 		}
 	}
 	

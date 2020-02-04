@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class IndexInverse {
+	
 	private Map<String, Set<Document>> termes;
 	
 	public IndexInverse() {
@@ -14,4 +15,5 @@ public class IndexInverse {
 	public void ajouterTerme(String terme, Set<Document> docs) {
 		this.termes.put(terme, docs);
 	}
+	
 }
