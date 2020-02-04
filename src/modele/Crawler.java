@@ -24,7 +24,7 @@ public class Crawler {
 		this.index = new Index();
 
 		this.files = new ArrayList<Path>();
-		Path dir = Paths.get("fichiers/corpusRI");
+		Path dir = Paths.get("fichiers/corpusRI/D0601A/Test");
 		try {
 			listFiles(dir);
 		} catch (IOException e) {
