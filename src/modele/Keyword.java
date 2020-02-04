@@ -11,6 +11,16 @@ public class Keyword {
 		TFIDFfrequences = tFIDFfrequences;
 	}
 	
+	public Keyword() {
+		this.occurences = 0;
+		this.frequence = 0;
+		this.TFIDFfrequences =0;
+	}
+	
+	public void incrementeOccurence() {
+		this.occurences ++;
+	}
+	
 	
 
 }
