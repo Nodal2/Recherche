@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.tartarus.snowball.ext.PorterStemmer;
+
 public class Outils {
 	
 	private static String[] PONCTUATION = {" ",".",",",":",";","?","!","\"","(",")","/","'","_","`","-", "\n","\0", "\t"};
@@ -35,6 +37,19 @@ public class Outils {
 			}
 		}
 		return mots;
+	}
+	
+	public static List<String> lemmatize(List<String> mots) {
+		PorterStemmer stemmer = new PorterStemmer();
+		List<String> motsLem = new ArrayList<String>();
+		for (String mot : mots) {
+			stemmer.setCurrent(mot);
+			stemmer.stem(); 
+			motsLem.add(stemmer.getCurrent());
+		}
+		return motsLem;
+		
+		
 	}
 	
 	@SuppressWarnings("resource")

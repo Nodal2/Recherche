@@ -38,6 +38,7 @@ public class Document {
 		mots.addAll(Outils.split(this.corps));
 		mots = Outils.removePonctuation(mots);
 		mots = Outils.removeStopWord(mots);
+		mots = Outils.lemmatize(mots);
 		motsCle.addAll(mots);
 		for (String motCle : motsCle) {
 			this.frequences.put(motCle, null);
