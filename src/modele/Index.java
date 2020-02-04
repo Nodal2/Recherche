@@ -5,7 +5,6 @@ import java.util.Set;
 
 public class Index {
 	private Set<Document> documents;
-	
 	public Index() {
 		this.documents = new HashSet<Document>();
 	}

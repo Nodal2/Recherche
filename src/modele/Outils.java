@@ -1,6 +1,7 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Outils {
@@ -21,53 +22,47 @@ public class Outils {
 			"would","wouldn't","you","you'd","you'll","you're","you've","your","yours","yourself","yourselves"
 	};
 
-	public static List<String> split(Document d) {
+	public static List<String> split(String texte) {
 		List<String> liste = new ArrayList<>();
-		/*
-		String[] titre = d.getTitre().toLowerCase().split(" ");
-		String[] corp = d.getCorp().toLowerCase().split(" ");
-		for(int i=0; i<titre.length; i++) {
-			liste.add(titre[i]);
-		}
-		for(int i=0; i<corp.length; i++) {
-			liste.add(corp[i]);
+		String texteSansMaj = texte.toLowerCase();
+		String[] texteSplite = texteSansMaj.split(" ");
+		
+		for(int i=0; i<texteSplite.length; i++) {
+			liste.add(texteSplite[i]);
 		}
 		
-		for(int i=0; i<liste.size(); i++) {
-			System.out.println(liste.get(i));
-			for(String symbole : PONCTUATION) {
-				liste.get(i).replace(symbole, "");
-			}
-			System.out.println(liste.get(i));
-		}*/
 		
-		/*
-		String[] texte = {};
-		for(String symbole : PONCTUATION) {
-			texte = d.getCorp().toLowerCase().split(symbole);
-		}
-		
-		for(String mot : texte) {
-			liste.add(mot);
-			System.out.println(mot);
-		}*/
 		
 		return liste;
 	}
 	
-	public static List<String> removeStopWord(List<String> l){
-		List<String> listSansStopWord = new ArrayList<>();
-		for (int i=0; i<l.size();i++)
-		{
-			int j=0;
-			while(j<STOP_WORDS.length && !l.get(i).equals(STOP_WORDS[j])) {
-				j++;
-			}
-			if(j==STOP_WORDS.length) {
-				listSansStopWord.add(l.get(i));
+	public static List<String> removePonctuation(List<String> mots) {
+		for(int i=0; i<mots.size(); i++) {
+			for(String symbole : PONCTUATION) {
+				String motSansPonctuation = mots.get(i).replace(symbole, "");
+				mots.set(i, motSansPonctuation);
 			}
 		}
-		return listSansStopWord;
+		return mots;
+	}
+	
+	public static List<String> removeStopWord(List<String> l){
+
+
+		Iterator<String> iteratorList = l.iterator();
+		while(iteratorList.hasNext()) {
+			String mot = iteratorList.next();
+			int j=0;
+			while(j<STOP_WORDS.length && !mot.equals(STOP_WORDS[j])) {
+				j++;
+			}
+			if(j!=STOP_WORDS.length) {
+				iteratorList.remove();
+			}
+		}
+		
+		
+		return l;
 
 	}
 }

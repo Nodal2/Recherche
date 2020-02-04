@@ -34,9 +34,12 @@ public class Document {
 	
 	public void ajouterMots() {
 		Set<String> motsCle = new HashSet<>();
-		List<String> mots = Outils.split(this);
+		List<String> mots = Outils.split(this.titre);
+		mots.addAll(Outils.split(this.corps)); 
 		mots = Outils.removeStopWord(mots);
+		mots = Outils.removePonctuation(mots);
 		motsCle.addAll(mots);
+		System.out.println(mots);
 		for (String motCle : motsCle) {
 			this.frequences.put(motCle, null);
 		}
