@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Outils {
 	
-	private static String[] PONCTUATION = {" ",".",",",":",";","?","!","\"","(",")","/","'","_","`","-", "\n", "\0"};
+	private static String[] PONCTUATION = {" ",".",",",":",";","?","!","\"","(",")","/","'","_","`","-", "\n","\0", "\t"};
 
 
 	public static List<String> split(String texte) {
@@ -54,14 +54,9 @@ public class Outils {
 			Iterator<String> iteratorList = l.iterator();
 			while(iteratorList.hasNext()) {
 				String mot = iteratorList.next();
-				int j=0;
-				while(j<stopwords.size()) {
-					if(stopwords.contains(mot)) {
-						System.out.println("mot SUP : "+mot);
-						iteratorList.remove();
-						break;
-					}
-					j++;
+				
+				if(stopwords.contains(mot)) {
+					iteratorList.remove();
 				}
 			}
 
@@ -72,4 +67,5 @@ public class Outils {
 		return l;
 
 	}
+	
 }
