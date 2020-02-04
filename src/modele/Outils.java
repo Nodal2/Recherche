@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Outils {
 	
-	private static String[] PONCTUATION = {" ",".",",",":",";","?","!","\"","(",")","/","'","_","`","-"};
+	private static String[] PONCTUATION = {" ",".",",",":",";","?","!","\"","(",")","/","_","`","-","''","\0","\t","\n"};
 	private static String[] STOP_WORDS = {"a","about","above","after","again","against","all","am","an","and",
 			"any","are","aren't","as","at","be","because","been","before","being","below","between","both","but",
 			"by","can't","cannot","could","couldn't","did","didn't","do","does","doesn't","doing","don't","down",
@@ -58,6 +58,7 @@ public class Outils {
 			}
 			if(j!=STOP_WORDS.length) {
 				iteratorList.remove();
+
 			}
 		}
 		
