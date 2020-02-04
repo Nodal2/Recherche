@@ -39,7 +39,6 @@ public class Document {
 		mots = Outils.removePonctuation(mots);
 		mots = Outils.removeStopWord(mots);
 		motsCle.addAll(mots);
-		System.out.println(mots);
 		for (String motCle : motsCle) {
 			if(this.frequences.keySet().contains(motCle))
 				this.frequences.get(motCle).incrementeOccurence();
