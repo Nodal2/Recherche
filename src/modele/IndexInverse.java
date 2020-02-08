@@ -16,7 +16,6 @@ public class IndexInverse {
 	public void ajouterTerme(String terme, Document docs) {
 		if(this.termes.keySet().contains(terme)) {
 			this.termes.get(terme).add(docs);
-			//System.out.println(this.termes.get(terme).toString());
 		}
 		else {
 			Set<Document> document = new HashSet<>();
@@ -25,8 +24,8 @@ public class IndexInverse {
 		}
 	}
 
-	public String toString() {
-		return this.termes.keySet().toString();
+	public Map<String, Set<Document>> getTermes() {
+		return termes;
 	}
 
 }

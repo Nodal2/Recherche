@@ -7,9 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,7 +17,7 @@ import org.w3c.dom.NodeList;
 
 public class Crawler {
 	private Index index;
-	private IndexInverse indexInv;
+	public static IndexInverse indexInv;
 	private List<Path> files;
 
 	public Crawler() {
@@ -93,15 +91,15 @@ public class Crawler {
 				
 				this.index.ajouterDocument(document);
 
-
-
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.exit(0);
-
 			}
 		}
-
+		
+		for(String mot : indexInv.getTermes().keySet()) {
+			System.out.println("mot : "+mot+" | docs : "+indexInv.getTermes().get(mot));
+		}
 	}
 
 	public Index getIndex() {

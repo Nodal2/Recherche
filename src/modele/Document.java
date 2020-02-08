@@ -48,6 +48,7 @@ public class Document {
 			if(this.mapMots.keySet().contains(motCle))
 				this.mapMots.get(motCle).incrementeOccurence();
 			else
+				Crawler.indexInv.ajouterTerme(motCle, this);
 				this.mapMots.put(motCle, new Keyword(motsCle.size()));
 		}
 		System.out.println();
