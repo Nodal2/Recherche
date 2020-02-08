@@ -94,14 +94,19 @@ public class Crawler {
 			}
 		}
 		
-		for(String mot : indexInv.getTermes().keySet()) {
-			System.out.println("mot : "+mot+" | docs : "+indexInv.toStringDocs(mot));
-		}
-		System.out.println(indexInv.getTermes().keySet().size()+" mots");
+//		for(String mot : indexInv.getTermes().keySet()) {
+//			System.out.println("mot : "+mot+" | docs : "+indexInv.toStringDocs(mot));
+//		}
+//		System.out.println(indexInv.getTermes().keySet().size()+" mots");
+		
 	}
 
 	public Index getIndex() {
 		return index;
+	}
+	
+	public static IndexInverse getIndexInv() {
+		return indexInv;
 	}
 }
 

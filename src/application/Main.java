@@ -6,6 +6,8 @@ import modele.Crawler;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
+import modele.Document;
+import java.util.Set;
 
 public class Main extends Application {
 	@Override
@@ -24,7 +26,14 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 		Crawler cr = new Crawler();
-
+		
+		Set<Document> docs = cr.getIndex().rechercheBooleen(d-> !d.getMapMots().containsKey("soldier"));
+		
+//		for (Document document : docs) {
+//			System.out.println(document.getMapMots().keySet());
+//		}
+		System.out.println(docs.size());
+		
 		System.out.println(cr.getIndex().getDoc().stream().count()+" fichiers");
 	}
 }
