@@ -22,7 +22,7 @@ public class Crawler {
 
 	public Crawler() {
 		this.index = new Index();
-		this.indexInv = new IndexInverse();
+		Crawler.indexInv = new IndexInverse();
 
 		this.files = new ArrayList<Path>();
 		Path dir = Paths.get("fichiers/corpusRI");
@@ -57,8 +57,6 @@ public class Crawler {
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 				org.w3c.dom.Document doc = dBuilder.parse(fXmlFile);
 
-				doc.getDocumentElement().normalize();
-
 				NodeList headList = doc.getElementsByTagName("HEADLINE");
 				NodeList nList = doc.getElementsByTagName("TEXT");
 				String premierP = null;
@@ -67,8 +65,7 @@ public class Crawler {
 				if(headList.getLength() == 0) {
 					headList = doc.getElementsByTagName("HEADER");
 
-					// au cas où pas de titre, on prends le premier paragraphe
-
+					// au cas pas de titre, on prends le premier paragraphe
 					if(headList.getLength() == 0) {
 						premierP = nList.item(0).getTextContent();
 					}
@@ -84,9 +81,9 @@ public class Crawler {
 				Document document;
 
 				try {
-					document = new Document(headList.item(0).getTextContent(), corps);
+					document = new Document(path.toString(), headList.item(0).getTextContent(), corps);
 				} catch(NullPointerException e) {
-					document = new Document(premierP, corps);
+					document = new Document(path.toString(), premierP, corps);
 				}
 				
 				this.index.ajouterDocument(document);
@@ -98,8 +95,9 @@ public class Crawler {
 		}
 		
 		for(String mot : indexInv.getTermes().keySet()) {
-			System.out.println("mot : "+mot+" | docs : "+indexInv.getTermes().get(mot));
+			System.out.println("mot : "+mot+" | docs : "+indexInv.toStringDocs(mot));
 		}
+		System.out.println(indexInv.getTermes().keySet().size()+" mots");
 	}
 
 	public Index getIndex() {

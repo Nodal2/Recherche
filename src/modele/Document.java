@@ -7,17 +7,27 @@ import java.util.Map;
 import java.util.Set;
 
 public class Document {
-
+	
+	private String nomFichier;
 	private String titre;
 	private String corps;
 
 	private Map<String, Keyword> mapMots;
 
-	public Document(String t, String c) {
+	public Document(String nomFichier, String t, String c) {
 		this.mapMots = new HashMap<String, Keyword>();
+		this.nomFichier = nomFichier;
 		this.titre = t;
 		this.corps = c;
 		ajouterMots();
+	}
+
+	public String getNomFichier() {
+		return nomFichier;
+	}
+
+	public String getCorps() {
+		return corps;
 	}
 
 	public void ajouterFrequence(String mot, Keyword motCle) {
@@ -50,12 +60,6 @@ public class Document {
 			else
 				Crawler.indexInv.ajouterTerme(motCle, this);
 				this.mapMots.put(motCle, new Keyword(motsCle.size()));
-		}
-		System.out.println();
-		System.out.println("DOCUMENT -------------------------");
-		System.out.println();
-		for(String mot : this.mapMots.keySet()) {
-			System.out.println("mot : "+mot+" | occurences : "+this.mapMots.get(mot).getOccurrences());
 		}
 	}
 

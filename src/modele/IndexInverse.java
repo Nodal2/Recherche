@@ -27,5 +27,13 @@ public class IndexInverse {
 	public Map<String, Set<Document>> getTermes() {
 		return termes;
 	}
+	
+	public String toStringDocs(String mot) {
+		String chaine = "\n\t";
+		for (Document doc : this.termes.get(mot)) {
+			chaine+= doc.getNomFichier()+"\n\t";
+		}
+		return chaine;
+	}
 
 }

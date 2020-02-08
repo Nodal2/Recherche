@@ -25,6 +25,6 @@ public class Main extends Application {
 		launch(args);
 		Crawler cr = new Crawler();
 
-		System.out.println(cr.getIndex().getDoc().stream().count());
+		System.out.println(cr.getIndex().getDoc().stream().count()+" fichiers");
 	}
 }

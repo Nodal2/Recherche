@@ -4,6 +4,22 @@ public class Keyword {
 	private int occurences;
 	private double frequence;
 	private double TFIDfrequences;
+	public int getOccurences() {
+		return occurences;
+	}
+
+	public double getFrequence() {
+		return frequence;
+	}
+
+	public double getTFIDfrequences() {
+		return TFIDfrequences;
+	}
+
+	public int getNbTot() {
+		return nbTot;
+	}
+
 	private int nbTot;
 
 	public Keyword(int occurences, double frequence, double tFIDFfrequences) {
