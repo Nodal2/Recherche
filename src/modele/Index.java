@@ -18,4 +18,8 @@ public class Index {
 	public Set<Document> getDoc() {
 		return this.documents;
 	}
+	
+	public int nbDocument() {
+		return this.documents.size();
+	}
 }

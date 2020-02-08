@@ -59,8 +59,9 @@ public class Document {
 				this.mapMots.get(motCle).incrementeOccurence();
 			else
 				Crawler.indexInv.ajouterTerme(motCle, this);
-				this.mapMots.put(motCle, new Keyword(motsCle.size()));
+				this.mapMots.put(motCle, new Keyword());
 		}
+		
 	}
 
 }

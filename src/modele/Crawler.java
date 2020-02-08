@@ -93,15 +93,27 @@ public class Crawler {
 				System.exit(0);
 			}
 		}
-		
+		indexInv.calculerIdf(this.index.getDoc().size());
+		ajouterPoids();
 		for(String mot : indexInv.getTermes().keySet()) {
-			System.out.println("mot : "+mot+" | docs : "+indexInv.toStringDocs(mot));
+			System.out.println("(index inv) mot : "+mot+" | docs : "+indexInv.toStringDocs(mot));
 		}
 		System.out.println(indexInv.getTermes().keySet().size()+" mots");
+		
 	}
 
 	public Index getIndex() {
 		return index;
+	}
+	
+	public void ajouterPoids() {
+		for(Document doc : this.index.getDoc()) {
+			System.out.println("DOOOOOOOOOC");
+			for(String mot : doc.getMapMots().keySet()) {
+				doc.getMapMots().get(mot).calculerPoids(indexInv.getIdfs().get(mot), doc.getMapMots().keySet().size());
+				//System.out.println(doc.getMapMots().get(mot).getPoids());
+			}
+		}
 	}
 }
 
