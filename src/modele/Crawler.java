@@ -31,7 +31,7 @@ public class Crawler {
 		try {
 			listFiles(dir);
 		} catch (IOException e) {
-			System.out.println("Répertoire introuvable");
+			System.out.println("Repertoire introuvable");
 		}
 		lireFichiers();
 	}
@@ -97,8 +97,10 @@ public class Crawler {
 				mots.addAll(Outils.split(document.getCorp())); 
 				mots = Outils.removePonctuation(mots);
 				mots = Outils.removeStopWord(mots);
+				mots = Outils.lemmatize(mots);
 				motsCle.addAll(mots);
 				for (String motCle : motsCle) {
+					System.out.println(motCle);
 					this.indexInv.ajouterTerme(motCle, document);
 					//System.out.println(this.indexInv.toString());
 					
@@ -114,7 +116,6 @@ public class Crawler {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("REPERTOIRE : "+path.toString());
 				System.exit(0);
 
 			}
