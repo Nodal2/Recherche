@@ -1,5 +1,5 @@
 package application;
-	
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import modele.Crawler;
@@ -20,11 +20,11 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 		Crawler cr = new Crawler();
-		
+
 		System.out.println(cr.getIndex().getDoc().stream().count());
 	}
 }

@@ -75,52 +75,33 @@ public class Crawler {
 						premierP = nList.item(0).getTextContent();
 					}
 				}
-				
+
 
 				for (int temp = 0; temp < nList.getLength(); temp++) {
 					Node nNode = nList.item(temp);
 					corps += nNode.getTextContent();
 
 				}
-				
+
 				Document document;
-				
+
 				try {
 					document = new Document(headList.item(0).getTextContent(), corps);
 				} catch(NullPointerException e) {
 					document = new Document(premierP, corps);
 				}
-			
-				
-				Set<String> motsCle = new HashSet<>();
-				List<String> mots = Outils.split(document.getTitre());
-				mots.addAll(Outils.split(document.getCorp())); 
-				mots = Outils.removePonctuation(mots);
-				mots = Outils.removeStopWord(mots);
-				mots = Outils.lemmatize(mots);
-				motsCle.addAll(mots);
-				for (String motCle : motsCle) {
-					System.out.println(motCle);
-					this.indexInv.ajouterTerme(motCle, document);
-					//System.out.println(this.indexInv.toString());
-					
-					if(document.getMapMots().keySet().contains(motCle))
-						document.getMapMots().get(motCle).incrementeOccurence();
-					else
-						document.getMapMots().put(motCle, new Keyword(motsCle.size()));
-				}
 				
 				this.index.ajouterDocument(document);
-				
-				
-				
+
+
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.exit(0);
 
 			}
 		}
-		
+
 	}
 
 	public Index getIndex() {

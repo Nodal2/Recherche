@@ -11,7 +11,7 @@ import java.util.List;
 import org.tartarus.snowball.ext.PorterStemmer;
 
 public class Outils {
-	
+
 	private static String[] PONCTUATION = {" ",".",",",":",";","?","!","\"","(",")","/","'","_","`","-", "\n","\0", "\t"};
 
 
@@ -19,16 +19,16 @@ public class Outils {
 		List<String> liste = new ArrayList<>();
 		String texteSansMaj = texte.toLowerCase();
 		String[] texteSplite = texteSansMaj.split(" ");
-		
+
 		for(int i=0; i<texteSplite.length; i++) {
 			liste.add(texteSplite[i]);
 		}
-		
-		
-		
+
+
+
 		return liste;
 	}
-	
+
 	public static List<String> removePonctuation(List<String> mots) {
 		for(int i=0; i<mots.size(); i++) {
 			for(String symbole : PONCTUATION) {
@@ -38,7 +38,7 @@ public class Outils {
 		}
 		return mots;
 	}
-	
+
 	public static List<String> lemmatize(List<String> mots) {
 		PorterStemmer stemmer = new PorterStemmer();
 		List<String> motsLem = new ArrayList<String>();
@@ -48,10 +48,10 @@ public class Outils {
 			motsLem.add(stemmer.getCurrent());
 		}
 		return motsLem;
-		
-		
+
+
 	}
-	
+
 	@SuppressWarnings("resource")
 	public static List<String> removeStopWord(List<String> l){
 
@@ -69,7 +69,7 @@ public class Outils {
 			Iterator<String> iteratorList = l.iterator();
 			while(iteratorList.hasNext()) {
 				String mot = iteratorList.next();
-				
+
 				if(stopwords.contains(mot)) {
 					iteratorList.remove();
 				}
@@ -78,9 +78,9 @@ public class Outils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return l;
 
 	}
-	
+
 }
