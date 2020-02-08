@@ -47,7 +47,6 @@ public class Document {
 	}
 
 	public void ajouterMots() {
-		Set<String> motsCle = new HashSet<>();
 		List<String> mots = Outils.split(this.titre);
 		mots.addAll(Outils.split(this.corps)); 
 		mots = Outils.removePonctuation(mots);
@@ -55,13 +54,19 @@ public class Document {
 		mots = Outils.lemmatize(mots);
 		
 		for (String motCle : mots) {
-			if(this.mapMots.keySet().contains(motCle))
+			if(this.mapMots.keySet().contains(motCle)) {
 				this.mapMots.get(motCle).incrementeOccurence();
-			else
+				
+			
+			}
+			else {
 				Crawler.indexInv.ajouterTerme(motCle, this);
 				this.mapMots.put(motCle, new Keyword());
+			}
 		}
-		
+		for (String motCle : this.mapMots.keySet()) {
+			this.mapMots.get(motCle).calculerFrequence(this.mapMots.keySet().size());
+		}
 	}
 
 }

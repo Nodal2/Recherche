@@ -108,12 +108,16 @@ public class Crawler {
 	
 	public void ajouterPoids() {
 		for(Document doc : this.index.getDoc()) {
-			System.out.println("DOOOOOOOOOC");
+			float freqTot = 0;
+			System.out.println("Document :"+doc.getNomFichier());
 			for(String mot : doc.getMapMots().keySet()) {
-				doc.getMapMots().get(mot).calculerPoids(indexInv.getIdfs().get(mot), doc.getMapMots().keySet().size());
-				//System.out.println(doc.getMapMots().get(mot).getPoids());
+				doc.getMapMots().get(mot).calculerPoids(indexInv.getIdfs().get(mot));
+				System.out.println("\tmot : "+mot+"| poids : "+doc.getMapMots().get(mot).getPoids()+" | frequence : "+doc.getMapMots().get(mot).getFrequence());
+				freqTot +=(float)doc.getMapMots().get(mot).getFrequence()/doc.getMapMots().get(mot).getOccurences();
 			}
+			System.out.println("FREQUENCE : "+freqTot);
 		}
+		
 	}
 }
 
