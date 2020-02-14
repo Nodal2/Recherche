@@ -17,12 +17,17 @@ import org.w3c.dom.NodeList;
 
 public class Crawler {
 	private Index index;
+	private Index indexRequete;
+	
 	public static IndexInverse indexInv;
+	public static IndexInverse indexInvRequete;
 	private List<Path> files;
 
 	public Crawler() {
 		this.index = new Index();
+		this.indexRequete = new Index();
 		Crawler.indexInv = new IndexInverse();
+		Crawler.indexInvRequete = new IndexInverse();
 
 		this.files = new ArrayList<Path>();
 		Path dir = Paths.get("fichiers/corpusRI");
@@ -94,11 +99,13 @@ public class Crawler {
 			}
 		}
 		indexInv.calculerIdf(this.index.getDoc().size());
-		ajouterPoids();
-		for(String mot : indexInv.getTermes().keySet()) {
-			System.out.println("(index inv) mot : "+mot+" | docs : "+indexInv.toStringDocs(mot));
-		}
-		System.out.println(indexInv.getTermes().keySet().size()+" mots");
+		ajouterPoids(this.index);
+		Document requete = new Document("requete","israel","hello, let's talk about the israel country");
+		this.indexRequete.ajouterDocument(requete);
+		indexInvRequete.calculerIdf(1);
+		ajouterPoids(this.indexRequete);
+		
+		RechercheVectorielle.rechercher(requete, this.index.getDoc());
 		
 	}
 
@@ -106,18 +113,12 @@ public class Crawler {
 		return index;
 	}
 	
-	public void ajouterPoids() {
-		for(Document doc : this.index.getDoc()) {
-			float freqTot = 0;
-			System.out.println("Document :"+doc.getNomFichier());
+	public void ajouterPoids(Index index) {
+		for(Document doc : index.getDoc()) {
 			for(String mot : doc.getMapMots().keySet()) {
 				doc.getMapMots().get(mot).calculerPoids(indexInv.getIdfs().get(mot));
-				System.out.println("\tmot : "+mot+"| poids : "+doc.getMapMots().get(mot).getPoids()+" | frequence : "+doc.getMapMots().get(mot).getFrequence());
-				freqTot +=(float)doc.getMapMots().get(mot).getFrequence()/doc.getMapMots().get(mot).getOccurences();
 			}
-			System.out.println("FREQUENCE : "+freqTot);
 		}
-		
 	}
 }
 

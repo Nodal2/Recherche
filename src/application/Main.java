@@ -24,7 +24,6 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 		Crawler cr = new Crawler();
-
 		System.out.println(cr.getIndex().getDoc().stream().count()+" fichiers");
 	}
 }

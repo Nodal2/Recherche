@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class Document {
+public class Document implements Comparable<Document>{
 	
 	private String nomFichier;
 	private String titre;
 	private String corps;
+	private double score;
 
 	private Map<String, Keyword> mapMots;
 
@@ -19,7 +20,12 @@ public class Document {
 		this.nomFichier = nomFichier;
 		this.titre = t;
 		this.corps = c;
+		this.score = 0.0;
 		ajouterMots();
+	}
+
+	public double getScore() {
+		return score;
 	}
 
 	public String getNomFichier() {
@@ -67,6 +73,19 @@ public class Document {
 		for (String motCle : this.mapMots.keySet()) {
 			this.mapMots.get(motCle).calculerFrequence(this.mapMots.keySet().size());
 		}
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+
+	@Override
+	public int compareTo(Document o) {
+		if (this.score - o.getScore() > 0)
+			return -1;
+		else if(this.score - o.getScore() < 0)
+			return 1;
+		return 0;
 	}
 
 }
