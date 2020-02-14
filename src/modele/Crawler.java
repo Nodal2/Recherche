@@ -17,15 +17,15 @@ import org.w3c.dom.NodeList;
 
 public class Crawler {
 	private Index index;
-	private Index indexRequete;
+	public Index indexRequete; //a modifier
 	
 	public static IndexInverse indexInv;
-	public static IndexInverse indexInvRequete;
+	public static IndexInverse indexInvRequete; //a modifier
 	private List<Path> files;
 
 	public Crawler() {
 		this.index = new Index();
-		this.indexRequete = new Index();
+		this.setIndexRequete(new Index());
 		Crawler.indexInv = new IndexInverse();
 		Crawler.indexInvRequete = new IndexInverse();
 
@@ -100,12 +100,7 @@ public class Crawler {
 		}
 		indexInv.calculerIdf(this.index.getDoc().size());
 		ajouterPoids(this.index);
-		Document requete = new Document("requete","israel","hello, let's talk about the israel country");
-		this.indexRequete.ajouterDocument(requete);
-		indexInvRequete.calculerIdf(1);
-		ajouterPoids(this.indexRequete);
 		
-		RechercheVectorielle.rechercher(requete, this.index.getDoc());
 		
 	}
 
@@ -119,6 +114,17 @@ public class Crawler {
 				doc.getMapMots().get(mot).calculerPoids(indexInv.getIdfs().get(mot));
 			}
 		}
+	}
+	public static IndexInverse getIndexInv() {
+		return indexInv;
+	}
+
+	public Index getIndexRequete() {
+		return indexRequete;
+	}
+
+	public void setIndexRequete(Index indexRequete) {
+		this.indexRequete = indexRequete;
 	}
 }
 

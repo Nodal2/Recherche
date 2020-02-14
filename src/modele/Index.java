@@ -2,6 +2,7 @@ package modele;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class Index {
 
@@ -21,5 +22,15 @@ public class Index {
 	
 	public int nbDocument() {
 		return this.documents.size();
+	}
+	
+	public Set<Document> rechercheBooleen(Predicate<Document> condition) {
+		Set<Document> listDoc = new HashSet<Document>();
+		for (Document document : documents) {
+			if(condition.test(document)) {
+				listDoc.add(document);
+			}
+		}
+		return listDoc;
 	}
 }

@@ -26,6 +26,12 @@ public class IndexInverse {
 		}
 	}
 
+	public Set<Document> rechercheBooleen() {
+		Set<Document> docsRecherche = new HashSet<Document>();
+		
+		return docsRecherche;
+	}
+	
 	public Map<String, Set<Document>> getTermes() {
 		return termes;
 	}
