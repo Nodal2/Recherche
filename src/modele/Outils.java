@@ -18,7 +18,16 @@ public class Outils {
 	private static String[] PONCTUATION = {" ",".",",",":",";","?","!","\"","(",")","/","'","_","`","-", "\n","\0", "\t"};
 
 
-	public static List<String> split(String texte) {
+
+	public static List<String> normalize(String texte) {
+		List<String> mots = split(texte);
+		mots = removePonctuation(mots);
+		mots = removeStopWords(mots);
+		return lemmatize(mots);
+
+
+	}
+	private static List<String> split(String texte) {
 		List<String> liste = new ArrayList<>();
 		String texteSansMaj = texte.toLowerCase();
 		String[] texteSplite = texteSansMaj.split(" ");
@@ -32,7 +41,7 @@ public class Outils {
 		return liste;
 	}
 
-	public static List<String> removePonctuation(List<String> mots) {
+	private static List<String> removePonctuation(List<String> mots) {
 		for(int i=0; i<mots.size(); i++) {
 			for(String symbole : PONCTUATION) {
 				String motSansPonctuation = mots.get(i).replace(symbole, "");
@@ -42,7 +51,7 @@ public class Outils {
 		return mots;
 	}
 
-	public static List<String> lemmatize(List<String> mots) {
+	private static List<String> lemmatize(List<String> mots) {
 		PorterStemmer stemmer = new PorterStemmer();
 		List<String> motsLem = new ArrayList<String>();
 		for (String mot : mots) {
@@ -55,8 +64,7 @@ public class Outils {
 
 	}
 
-	@SuppressWarnings("resource")
-	public static List<String> removeStopWord(List<String> l){
+	private static List<String> removeStopWords(List<String> l){
 
 		try {
 			File file = new File("fichiers/stopwords.txt"); 
@@ -77,6 +85,9 @@ public class Outils {
 					iteratorList.remove();
 				}
 			}
+			if(br != null) {
+				br.close();
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -85,45 +96,45 @@ public class Outils {
 		return l;
 
 	}
-	
-	
+
+
 	//application de la formule de similarite
 	public static double similarite(Map<String,Keyword> documentA, Map<String,Keyword> documentB) {
-		final Set<String> motsCommuns = getMotsCommuns(documentA, documentB);
-        final double produitScalaire = produitScalaire(documentA, documentB, motsCommuns);
-        double d1 = 0.0d;
-        for (Keyword keyword : documentA.values()) {
-            d1 += Math.pow(keyword.getPoids(), 2);
-        }
-        double d2 = 0.0d;
-        for (Keyword keyword : documentB.values()) {
-            d2 += Math.pow(keyword.getPoids(), 2);
-        }
-        double cosinus;
-        if (d1 <= 0.0 || d2 <= 0.0) {
-            cosinus = 0.0;
-        } else {
-            cosinus = (double) (produitScalaire / (double) (Math.sqrt(d1) * Math.sqrt(d2)));
-        }
-        return cosinus;
+		Set<String> motsCommuns = getMotsCommuns(documentA, documentB);
+		double produitScalaire = produitScalaire(documentA, documentB, motsCommuns);
+		double d1 = 0.0d;
+		for (Keyword keyword : documentA.values()) {
+			d1 += Math.pow(keyword.getPoids(), 2);
+		}
+		double d2 = 0.0d;
+		for (Keyword keyword : documentB.values()) {
+			d2 += Math.pow(keyword.getPoids(), 2);
+		}
+		double cosinus;
+		if (d1 <= 0.0 || d2 <= 0.0) {
+			cosinus = 0.0;
+		} else {
+			cosinus = (double) (produitScalaire / (double) (Math.sqrt(d1) * Math.sqrt(d2)));
+		}
+		return cosinus;
 	}
-	
-	
+
+
 	//recupere les mots en commun dans les deux documents
 	private static Set<String> getMotsCommuns(Map<String,Keyword> documentA, Map<String,Keyword> documentB) {
-        final Set<String> intersection = new HashSet<>(documentA.keySet());
-        //recupere juste ce qu'il y a en commun dans la collection specifiee
-        intersection.retainAll(documentB.keySet());
-        return intersection;
-    }
-	
+		Set<String> intersection = new HashSet<>(documentA.keySet());
+		//recupere juste ce qu'il y a en commun dans la collection specifiee
+		intersection.retainAll(documentB.keySet());
+		return intersection;
+	}
+
 	//produit scalaire entre les deux vecteurs
 	private static double produitScalaire(Map<String,Keyword> documentA, Map<String,Keyword> documentB,
-            Set<String> intersection) {
-        double produitScalaire = 0;
-        for (String key : intersection) {
-            produitScalaire += documentA.get(key).getPoids() * documentB.get(key).getPoids();
-        }
-        return produitScalaire;
-    }
+			Set<String> intersection) {
+		double produitScalaire = 0;
+		for (String key : intersection) {
+			produitScalaire += documentA.get(key).getPoids() * documentB.get(key).getPoids();
+		}
+		return produitScalaire;
+	}
 }

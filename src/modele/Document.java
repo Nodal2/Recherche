@@ -1,10 +1,9 @@
 package modele;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Document implements Comparable<Document>{
 	
@@ -24,40 +23,12 @@ public class Document implements Comparable<Document>{
 		ajouterMots();
 	}
 
-	public double getScore() {
-		return score;
-	}
-
-	public String getNomFichier() {
-		return nomFichier;
-	}
-
-	public String getCorps() {
-		return corps;
-	}
-
-	public void ajouterFrequence(String mot, Keyword motCle) {
-		this.mapMots.put(mot, motCle);
-	}
-
-	public String getTitre() {
-		return this.titre;
-	}
-
-	public String getCorp() {
-		return this.corps;
-	}
-
-	public Map<String, Keyword> getMapMots() {
-		return mapMots;
-	}
-
 	public void ajouterMots() {
-		List<String> mots = Outils.split(this.titre);
-		mots.addAll(Outils.split(this.corps)); 
-		mots = Outils.removePonctuation(mots);
-		mots = Outils.removeStopWord(mots);
-		mots = Outils.lemmatize(mots);
+		List<String> titreMots = Outils.normalize(this.titre);
+		List<String> corpsMots = Outils.normalize(this.corps);
+		List<String> mots = new ArrayList<>();
+		mots.addAll(titreMots);
+		mots.addAll(corpsMots);
 		
 		for (String motCle : mots) {
 			if(this.mapMots.keySet().contains(motCle)) {
@@ -86,6 +57,34 @@ public class Document implements Comparable<Document>{
 		else if(this.score - o.getScore() < 0)
 			return 1;
 		return 0;
+	}
+	
+	public double getScore() {
+		return score;
+	}
+
+	public String getNomFichier() {
+		return nomFichier;
+	}
+
+	public String getCorps() {
+		return corps;
+	}
+
+	public void ajouterFrequence(String mot, Keyword motCle) {
+		this.mapMots.put(mot, motCle);
+	}
+
+	public String getTitre() {
+		return this.titre;
+	}
+
+	public String getCorp() {
+		return this.corps;
+	}
+
+	public Map<String, Keyword> getMapMots() {
+		return mapMots;
 	}
 
 }
