@@ -1,7 +1,9 @@
 package modele;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,12 +26,6 @@ public class IndexInverse {
 			document.add(docs);
 			this.termes.put(terme, document);
 		}
-	}
-
-	public Set<Document> rechercheBooleen() {
-		Set<Document> docsRecherche = new HashSet<Document>();
-		
-		return docsRecherche;
 	}
 	
 	public Map<String, Set<Document>> getTermes() {

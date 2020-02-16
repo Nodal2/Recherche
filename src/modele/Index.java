@@ -24,13 +24,4 @@ public class Index {
 		return this.documents.size();
 	}
 	
-	public Set<Document> rechercheBooleen(Predicate<Document> condition) {
-		Set<Document> listDoc = new HashSet<Document>();
-		for (Document document : documents) {
-			if(condition.test(document)) {
-				listDoc.add(document);
-			}
-		}
-		return listDoc;
-	}
 }
