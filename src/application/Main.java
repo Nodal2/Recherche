@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 
 import modele.Document;
 import modele.ParametreRechercheBoolIndexInv;
+import modele.RechercheBooleen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,18 @@ public class Main extends Application {
 		RechercheVectorielle.rechercher(requete, cr.getIndex().getDoc());
 		//fin test 
 	
+		//test booleen
+		System.out.println("Test modèle Booleen");
+		RechercheBooleen.documents = cr.getIndex().getDoc();
+		RechercheBooleen.termes = cr.getIndexInv().getTermes();
+		ParametreRechercheBoolIndexInv p1 = new ParametreRechercheBoolIndexInv("soldier", "negate");
+		
+		List<ParametreRechercheBoolIndexInv> parametres = new ArrayList<ParametreRechercheBoolIndexInv>();
+		parametres.add(p1);
+		Set<Document> docs = RechercheBooleen.rechercheBooleen(parametres);
+		System.out.println(docs.size());
+		//fin test boul
+		
 		System.out.println(cr.getIndex().getDoc().stream().count()+" fichiers");
 	}
 }

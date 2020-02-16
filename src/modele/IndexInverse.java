@@ -27,47 +27,7 @@ public class IndexInverse {
 			this.termes.put(terme, document);
 		}
 	}
-
-	public Set<Document> rechercheBooleen(List<ParametreRechercheBoolIndexInv> parametres) {
-		Collection<Set<Document>> tousLesDocs = termes.values();
-		Set<Document> docsRecherche = new HashSet<Document>();
-		
-		//On rentre tous les docs dans une seule liste
-		for (Set<Document> documents : tousLesDocs) {
-			docsRecherche.addAll(documents);
-		}
-		
-		int i = 0;
-		for (ParametreRechercheBoolIndexInv parametre : parametres) {
-
-			//On modifie la liste docsRecherche en fonction des mots et des options qui leur sont liee
-			Set<Document> setDocParMotParametre = termes.get(parametre.getMotRecherche());
-			
-			switch (parametre.getOption()) {
-		
-			case "and":
-				docsRecherche.retainAll(setDocParMotParametre);
-				break;
-
-			case "negate":
-				if(parametres.size() == 1) {
-					//Possibilite d evolution en faisant en sorte que cela soit moins couteux et non comme "index"
-				}
-				docsRecherche.removeAll(setDocParMotParametre);
-				break;
-
-			case "or" :
-				
-			default :
-				docsRecherche.addAll(setDocParMotParametre);
-				break;
-			}
-			i++;
-		}
-
-		return docsRecherche;
-	}
-
+	
 	public Map<String, Set<Document>> getTermes() {
 		return termes;
 	}
