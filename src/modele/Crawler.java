@@ -17,12 +17,17 @@ import org.w3c.dom.NodeList;
 
 public class Crawler {
 	private Index index;
+	public Index indexRequete; //a modifier
+	
 	public static IndexInverse indexInv;
+	public static IndexInverse indexInvRequete; //a modifier
 	private List<Path> files;
 
 	public Crawler() {
 		this.index = new Index();
+		this.setIndexRequete(new Index());
 		Crawler.indexInv = new IndexInverse();
+		Crawler.indexInvRequete = new IndexInverse();
 
 		this.files = new ArrayList<Path>();
 		Path dir = Paths.get("fichiers/corpusRI");
@@ -93,11 +98,9 @@ public class Crawler {
 				System.exit(0);
 			}
 		}
+		indexInv.calculerIdf(this.index.getDoc().size());
+		ajouterPoids(this.index);
 		
-//		for(String mot : indexInv.getTermes().keySet()) {
-//			System.out.println("mot : "+mot+" | docs : "+indexInv.toStringDocs(mot));
-//		}
-//		System.out.println(indexInv.getTermes().keySet().size()+" mots");
 		
 	}
 
@@ -105,8 +108,23 @@ public class Crawler {
 		return index;
 	}
 	
+	public void ajouterPoids(Index index) {
+		for(Document doc : index.getDoc()) {
+			for(String mot : doc.getMapMots().keySet()) {
+				doc.getMapMots().get(mot).calculerPoids(indexInv.getIdfs().get(mot));
+			}
+		}
+	}
 	public static IndexInverse getIndexInv() {
 		return indexInv;
+	}
+
+	public Index getIndexRequete() {
+		return indexRequete;
+	}
+
+	public void setIndexRequete(Index indexRequete) {
+		this.indexRequete = indexRequete;
 	}
 }
 

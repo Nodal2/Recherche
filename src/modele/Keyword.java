@@ -2,48 +2,47 @@ package modele;
 
 public class Keyword {
 	private int occurences;
-	private double frequence;
-	private double TFIDfrequences;
+	private float frequence;
+	private float tFIdf;
+
 	public int getOccurences() {
 		return occurences;
 	}
 
-	public double getFrequence() {
+
+	public float getFrequence() {
 		return frequence;
 	}
 
-	public double getTFIDfrequences() {
-		return TFIDfrequences;
-	}
 
-	public int getNbTot() {
-		return nbTot;
-	}
 
-	private int nbTot;
-
-	public Keyword(int occurences, double frequence, double tFIDFfrequences) {
-		this.occurences = occurences;
-		this.frequence = frequence;
-		TFIDfrequences = tFIDFfrequences;
-	}
-
-	public Keyword(int nbMots) {
-		this.occurences = 0;
+	public Keyword() {
+		this.occurences = 1;
+		this.tFIdf = 0;
 		this.frequence = 0;
-		this.TFIDfrequences =0;
-		this.nbTot = nbMots;
 	}
+	
 
 	public void incrementeOccurence() {
 		this.occurences ++;
-		if(this.nbTot != 0)
-			this.frequence = this.occurences/this.nbTot;
+	}
+
+
+	public double getPoids() {
+		return tFIdf;
 	}
 	
-	public int getOccurrences() {
-		return this.occurences;
+	public void calculerFrequence(int nbMots) {
+		if(nbMots != 0)
+			this.frequence = (float)this.occurences/nbMots;
 	}
+	
+	
+	
+	public void calculerPoids(float idf) {
+		this.tFIdf = (float) (this.frequence * idf);
+	}
+
 
 
 

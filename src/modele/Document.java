@@ -1,16 +1,16 @@
 package modele;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-public class Document {
+public class Document implements Comparable<Document>{
 	
 	private String nomFichier;
 	private String titre;
 	private String corps;
+	private double score;
 
 	private Map<String, Keyword> mapMots;
 
@@ -19,7 +19,48 @@ public class Document {
 		this.nomFichier = nomFichier;
 		this.titre = t;
 		this.corps = c;
+		this.score = 0.0;
 		ajouterMots();
+	}
+
+	public void ajouterMots() {
+		List<String> titreMots = Outils.normalize(this.titre);
+		List<String> corpsMots = Outils.normalize(this.corps);
+		List<String> mots = new ArrayList<>();
+		mots.addAll(titreMots);
+		mots.addAll(corpsMots);
+		
+		for (String motCle : mots) {
+			if(this.mapMots.keySet().contains(motCle)) {
+				this.mapMots.get(motCle).incrementeOccurence();
+				
+			
+			}
+			else {
+				Crawler.indexInv.ajouterTerme(motCle, this);
+				this.mapMots.put(motCle, new Keyword());
+			}
+		}
+		for (String motCle : this.mapMots.keySet()) {
+			this.mapMots.get(motCle).calculerFrequence(this.mapMots.keySet().size());
+		}
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+
+	@Override
+	public int compareTo(Document o) {
+		if (this.score - o.getScore() > 0)
+			return -1;
+		else if(this.score - o.getScore() < 0)
+			return 1;
+		return 0;
+	}
+	
+	public double getScore() {
+		return score;
 	}
 
 	public String getNomFichier() {
@@ -44,23 +85,6 @@ public class Document {
 
 	public Map<String, Keyword> getMapMots() {
 		return mapMots;
-	}
-
-	public void ajouterMots() {
-		Set<String> motsCle = new HashSet<>();
-		List<String> mots = Outils.split(this.titre);
-		mots.addAll(Outils.split(this.corps)); 
-		mots = Outils.removePonctuation(mots);
-		mots = Outils.removeStopWord(mots);
-		mots = Outils.lemmatize(mots);
-		
-		for (String motCle : mots) {
-			if(this.mapMots.keySet().contains(motCle))
-				this.mapMots.get(motCle).incrementeOccurence();
-			else
-				Crawler.indexInv.ajouterTerme(motCle, this);
-				this.mapMots.put(motCle, new Keyword(motsCle.size()));
-		}
 	}
 
 }

@@ -20,6 +20,10 @@ public class Index {
 		return this.documents;
 	}
 	
+	public int nbDocument() {
+		return this.documents.size();
+	}
+	
 	public Set<Document> rechercheBooleen(Predicate<Document> condition) {
 		Set<Document> listDoc = new HashSet<Document>();
 		for (Document document : documents) {

@@ -11,6 +11,7 @@ import modele.ParametreRechercheBoolIndexInv;
 
 import java.util.ArrayList;
 import java.util.List;
+import modele.RechercheVectorielle;
 import java.util.Set;
 
 public class Main extends Application {
@@ -31,21 +32,14 @@ public class Main extends Application {
 		launch(args);
 		Crawler cr = new Crawler();
 		
-		//Set<Document> docs = cr.getIndex().rechercheBooleen(d-> d.getMapMots().containsKey("soldier") && d.getMapMots().containsKey("korea"));
-		
-
-		
-		ArrayList<ParametreRechercheBoolIndexInv> parametres = new ArrayList<ParametreRechercheBoolIndexInv>();
-		parametres.add(new ParametreRechercheBoolIndexInv("soldier", "and"));
-		parametres.add(new ParametreRechercheBoolIndexInv("korea", "or"));
-		Set<Document> docs = cr.getIndexInv().rechercheBooleen(parametres);
-		
-//		for (Document document : docs) {
-//		System.out.println(document.getMapMots().keySet());
-//	}
-		
-		System.out.println(docs.size());
-		
+		//test vectoriel
+		Document requete = new Document("requete","israel","hello, let's talk about the israel country");
+		cr.getIndexRequete().ajouterDocument(requete);
+		Crawler.indexInvRequete.calculerIdf(1);
+		cr.ajouterPoids(cr.indexRequete);
+		RechercheVectorielle.rechercher(requete, cr.getIndex().getDoc());
+		//fin test 
+	
 		System.out.println(cr.getIndex().getDoc().stream().count()+" fichiers");
 	}
 }
