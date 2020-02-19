@@ -41,27 +41,33 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		launch(args);
 		Crawler cr = new Crawler();
+		RechercheBooleen.documents = Crawler.getIndex().getDoc();
+		RechercheBooleen.termes = Crawler.getIndexInv().getTermes();
 		
-		//test vectoriel
+		launch(args);
+		
+		//--------------------------------------------------Code de test
+		//Crawler cr = new Crawler();
+		
+//		//test vectoriel
 		Document requete = new Document("requete","israel","hello, let's talk about the israel country");
-		cr.getIndexRequete().ajouterDocument(requete);
+		Crawler.getIndexRequete().ajouterDocument(requete);
 		Crawler.indexInvRequete.calculerIdf(1);
-		cr.ajouterPoids(cr.indexRequete);
-		RechercheVectorielle.rechercher(requete, cr.getIndex().getDoc());
-		//fin test 
+		Crawler.ajouterPoids(Crawler.indexRequete);
+		RechercheVectorielle.corpus = Crawler.getIndex().getDoc();
+		RechercheVectorielle.rechercher(requete);
+//		//fin test 
 	
 		//test booleen
-		System.out.println("Test modèle Booleen");
-		RechercheBooleen.documents = cr.getIndex().getDoc();
-		RechercheBooleen.termes = cr.getIndexInv().getTermes();
-		ParametreRechercheBoolIndexInv p1 = new ParametreRechercheBoolIndexInv("soldier", "negate");
-		
-		List<ParametreRechercheBoolIndexInv> parametres = new ArrayList<ParametreRechercheBoolIndexInv>();
-		parametres.add(p1);
-		Set<Document> docs = RechercheBooleen.rechercheBooleen(parametres);
-		System.out.println(docs.size());
+//		RechercheBooleen.documents = cr.getIndex().getDoc();
+//		RechercheBooleen.termes = cr.getIndexInv().getTermes();
+//		ParametreRechercheBoolIndexInv p1 = new ParametreRechercheBoolIndexInv("soldier", "negate");
+//		
+//		List<ParametreRechercheBoolIndexInv> parametres = new ArrayList<ParametreRechercheBoolIndexInv>();
+//		parametres.add(p1);
+//		Set<Document> docs = RechercheBooleen.rechercheBooleen(parametres);
+//		System.out.println(docs.size());
 		//fin test boul
 		
 		System.out.println(cr.getIndex().getDoc().stream().count()+" fichiers");

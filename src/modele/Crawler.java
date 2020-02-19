@@ -16,15 +16,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class Crawler {
-	private Index index;
-	public Index indexRequete; //a modifier
+	public static Index index;
+	public static Index indexRequete; //a modifier
 	
 	public static IndexInverse indexInv;
 	public static IndexInverse indexInvRequete; //a modifier
 	private List<Path> files;
 
 	public Crawler() {
-		this.index = new Index();
+		Crawler.index = new Index();
 		this.setIndexRequete(new Index());
 		Crawler.indexInv = new IndexInverse();
 		Crawler.indexInvRequete = new IndexInverse();
@@ -91,24 +91,24 @@ public class Crawler {
 					document = new Document(path.toString(), premierP, corps);
 				}
 				
-				this.index.ajouterDocument(document);
+				Crawler.index.ajouterDocument(document);
 
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.exit(0);
 			}
 		}
-		indexInv.calculerIdf(this.index.getDoc().size());
-		ajouterPoids(this.index);
+		indexInv.calculerIdf(Crawler.index.getDoc().size());
+		ajouterPoids(Crawler.index);
 		
 		
 	}
 
-	public Index getIndex() {
+	public static Index getIndex() {
 		return index;
 	}
 	
-	public void ajouterPoids(Index index) {
+	public static void ajouterPoids(Index index) {
 		for(Document doc : index.getDoc()) {
 			for(String mot : doc.getMapMots().keySet()) {
 				doc.getMapMots().get(mot).calculerPoids(indexInv.getIdfs().get(mot));
@@ -119,12 +119,12 @@ public class Crawler {
 		return indexInv;
 	}
 
-	public Index getIndexRequete() {
+	public static Index getIndexRequete() {
 		return indexRequete;
 	}
 
 	public void setIndexRequete(Index indexRequete) {
-		this.indexRequete = indexRequete;
+		Crawler.indexRequete = indexRequete;
 	}
 }
 
