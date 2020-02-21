@@ -16,4 +16,8 @@ public class ParametreRechercheBoolIndexInv {
 	public String getOption() {
 		return option;
 	}
+	
+	public String toString() {
+		return "mot recherche :"+this.motRecherche+"\nOption :"+this.option+"\n\n";
+	}
 }

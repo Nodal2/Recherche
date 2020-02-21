@@ -41,6 +41,7 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
+		//Code de lancement d'application et indexation des fichiers
 		Crawler cr = new Crawler();
 		RechercheBooleen.documents = Crawler.getIndex().getDoc();
 		RechercheBooleen.termes = Crawler.getIndexInv().getTermes();
@@ -60,16 +61,14 @@ public class Main extends Application {
 //		//fin test 
 	
 		//test booleen
-//		RechercheBooleen.documents = cr.getIndex().getDoc();
-//		RechercheBooleen.termes = cr.getIndexInv().getTermes();
 //		ParametreRechercheBoolIndexInv p1 = new ParametreRechercheBoolIndexInv("soldier", "negate");
 //		
 //		List<ParametreRechercheBoolIndexInv> parametres = new ArrayList<ParametreRechercheBoolIndexInv>();
-//		parametres.add(p1);
-//		Set<Document> docs = RechercheBooleen.rechercheBooleen(parametres);
+//		//parametres.add(p1);
+//		Set<Document> docs = RechercheBooleen.rechercheBooleen("negate soldier and korea and nuclear");
 //		System.out.println(docs.size());
 		//fin test boul
 		
-		System.out.println(cr.getIndex().getDoc().stream().count()+" fichiers");
+		System.out.println(Crawler.getIndex().getDoc().stream().count()+" fichiers");
 	}
 }
