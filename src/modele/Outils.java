@@ -24,9 +24,13 @@ public class Outils {
 		mots = removePonctuation(mots);
 		mots = removeStopWords(mots);
 		return lemmatize(mots);
-
-
 	}
+	
+	public static List<String> normalizeForBoolean(String texte) {
+		List<String> mots = split(texte);
+		return removePonctuation(mots);
+	}
+	
 	private static List<String> split(String texte) {
 		List<String> liste = new ArrayList<>();
 		String texteSansMaj = texte.toLowerCase();

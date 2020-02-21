@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -24,13 +23,21 @@
    <top>
       <HBox alignment="TOP_CENTER" prefHeight="28.0" prefWidth="600.0" style="-fx-background-color: #F8E0E0;" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Skingle">
+            <Text fx:id="logo" strokeType="OUTSIDE" strokeWidth="0.0" text="Skingle">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <TextField />
-            <Button mnemonicParsing="false" text="Button" />
+            <Text fx:id="nbDocs" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+               <HBox.margin>
+                  <Insets left="80.0" top="5.0" />
+               </HBox.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Documents">
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin>
+            </Text>
          </children>
       </HBox>
    </top>

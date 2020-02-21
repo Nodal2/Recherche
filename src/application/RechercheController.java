@@ -66,7 +66,7 @@ public class RechercheController implements Initializable{
 						switch (modele.getSelectionModel().getSelectedItem()) {
 						
 						case "Booleen":
-							
+							docs = modeleBooleen(research);
 							break;
 							
 						case "Vectoriel":
@@ -118,14 +118,8 @@ public class RechercheController implements Initializable{
 		return RechercheVectorielle.resultat;
 	}
 	
-	private Set<Document> modeleBooleen() {
-		ParametreRechercheBoolIndexInv p1 = new ParametreRechercheBoolIndexInv("korea", "and");
-		
-		List<ParametreRechercheBoolIndexInv> parametres = new ArrayList<ParametreRechercheBoolIndexInv>();
-		parametres.add(p1);
-		Set<Document> documents = RechercheBooleen.rechercheBooleen(parametres);
-		
-		return documents;
+	private Set<Document> modeleBooleen(String requete) {
+		return RechercheBooleen.rechercheBooleen(requete);
 	}
 	
 	private void loadData() {
