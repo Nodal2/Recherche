@@ -9,7 +9,7 @@ public class RechercheVectorielle{
 	public static Set<Document> corpus = new HashSet<Document>();
 	
 	public static void rechercher(Document requete) {
-		
+		resultat = new TreeSet<Document>();
 		for(Document doc : corpus) {
 			double similarite = Outils.similarite(requete.getMapMots(), doc.getMapMots());
 			doc.setScore(similarite);

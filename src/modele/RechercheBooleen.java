@@ -47,7 +47,6 @@ public class RechercheBooleen {
 	
 	private static List<ParametreRechercheBoolIndexInv> decoupageRequete(String requete) {
 		List<ParametreRechercheBoolIndexInv> parametres = new ArrayList<ParametreRechercheBoolIndexInv>();
-		requete.toLowerCase();
 		List<String> motRequete = Outils.normalizeForBoolean(requete);
 		
 		for(int i = 0; i<motRequete.size(); i++) {
