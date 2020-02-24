@@ -25,7 +25,7 @@ import modele.Document;
 
 public class ListeArticleController implements Initializable {
 
-	private Collection<Document> documents;
+	private static Collection<Document> documents;
 	
     @FXML
     private VBox listDocument;
@@ -77,6 +77,13 @@ public class ListeArticleController implements Initializable {
 		});
 	}
 	
+	public void initiateListDocument() {
+		if(this.documents != null)
+			this.initiateListDocument(this.documents);
+		else
+			System.out.println("vide !!");
+	}
+	
 	public void initiateListDocument(Collection<Document> documents) {
 		this.documents = documents;
 		
@@ -121,7 +128,7 @@ public class ListeArticleController implements Initializable {
 
 				@Override
 				public void handle(Event arg0) {
-					afficheDoc(document.getTitre(), document.getCorps(), document.getNomFichier(), arg0);					
+					afficheDoc(document.getTitre(), document.getCorps(), document.getNomFichier(), arg0, documents);					
 				}
 				
 			});
@@ -131,7 +138,7 @@ public class ListeArticleController implements Initializable {
 		
 	}
 	
-	private void afficheDoc(String titre, String corps, String localisation, Event arg0) {
+	private void afficheDoc(String titre, String corps, String localisation, Event arg0, Collection<Document> docs) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/vue/PageDocument.fxml"));
@@ -142,7 +149,7 @@ public class ListeArticleController implements Initializable {
 			//acces au controller de la nouvelle view
 			PageDocumentController controllerDocument = loader.getController();
 
-			controllerDocument.loadDocument(titre, corps, localisation);;
+			controllerDocument.loadDocument(titre, corps, localisation, docs);;
 
 			Stage pageDocumentStage = (Stage) ((Node) arg0.getSource()).getScene().getWindow();
 			pageDocumentStage.setScene(pageDocumentScene);
