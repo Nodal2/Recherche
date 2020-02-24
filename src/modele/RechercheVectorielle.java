@@ -1,22 +1,18 @@
 package modele;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class RechercheVectorielle{
-	public static TreeSet<Document> resultat = new TreeSet<>();
-	public static Set<Document> corpus = new HashSet<Document>();
+	public static HashMap<Long, Double> resultatMap = new HashMap<>();
 	
 	public static void rechercher(Document requete) {
-		resultat = new TreeSet<Document>();
-		for(Document doc : corpus) {
+		for(Document doc : Crawler.index.getDoc()) {
 			double similarite = Outils.similarite(requete.getMapMots(), doc.getMapMots());
 			doc.setScore(similarite);
-			resultat.add(doc);
-		}
-		for(Document doc : resultat) {
-			System.out.println("score : "+doc.getScore()+" fichier : "+doc.getNomFichier());
+			resultatMap.put(doc.getId(), doc.getScore());
 		}
 	}
 	

@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Document implements Comparable<Document>{
 	
+	private Long id;
 	private String nomFichier;
 	private String titre;
 	private String corps;
@@ -14,8 +15,9 @@ public class Document implements Comparable<Document>{
 
 	private Map<String, Keyword> mapMots;
 
-	public Document(String nomFichier, String t, String c) {
+	public Document(Long id, String nomFichier, String t, String c) {
 		this.mapMots = new HashMap<String, Keyword>();
+		this.id = id;
 		this.nomFichier = nomFichier;
 		this.titre = t;
 		this.corps = c;
@@ -85,6 +87,14 @@ public class Document implements Comparable<Document>{
 
 	public Map<String, Keyword> getMapMots() {
 		return mapMots;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

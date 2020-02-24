@@ -1,22 +1,26 @@
 package modele;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Set;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Index {
 
-	private Set<Document> documents;
+	private HashMap<Long, Document> documents;
 
 	public Index() {
-		this.documents = new HashSet<Document>();
+		this.documents = new HashMap<Long,Document>();
 	}
 
-	public void ajouterDocument(Document doc) {
-		this.documents.add(doc);
+	public void ajouterDocument(Long id,Document doc) {
+		this.documents.put(id, doc);
 	}
 
 	public Set<Document> getDoc() {
+		return this.documents.values().stream().collect(Collectors.toSet());
+	}
+	
+	public HashMap<Long,Document> getMap() {
 		return this.documents;
 	}
 	
