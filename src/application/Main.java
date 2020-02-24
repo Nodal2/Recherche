@@ -44,7 +44,6 @@ public class Main extends Application {
 		//Code de lancement d'application et indexation des fichiers
 		Crawler cr = new Crawler();
 		RechercheBooleen.documents = Crawler.getIndex().getDoc();
-		RechercheBooleen.termes = Crawler.getIndexInv().getTermes();
 		
 		launch(args);
 		
