@@ -8,6 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx"/>
-	<classpathentry kind="lib" path="/home/etudiants/info/klombard/Documents/S4/rechercheDoc/Recherche/lucene-snowball-3.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/damie/Documents/Java/RechercheTestClone/Recherchebis/lucene-snowball-3.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
