@@ -54,7 +54,9 @@ public class Crawler {
 	}
 
 	public void lireFichiers() {
+		Long id = 0L;
 		for (Path path : this.files) {
+			id++;
 			try {
 
 				File fXmlFile = new File(path.toString());
@@ -86,12 +88,12 @@ public class Crawler {
 				Document document;
 
 				try {
-					document = new Document(path.toString(), headList.item(0).getTextContent(), corps);
+					document = new Document(id, path.toString(), headList.item(0).getTextContent(), corps);
 				} catch(NullPointerException e) {
-					document = new Document(path.toString(), premierP, corps);
+					document = new Document(id, path.toString(), premierP, corps);
 				}
 				
-				Crawler.index.ajouterDocument(document);
+				Crawler.index.ajouterDocument(id,document);
 
 			} catch (Exception e) {
 				e.printStackTrace();

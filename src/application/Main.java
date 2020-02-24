@@ -48,27 +48,6 @@ public class Main extends Application {
 		
 		launch(args);
 		
-		//--------------------------------------------------Code de test
-		//Crawler cr = new Crawler();
-		
-//		//test vectoriel
-		Document requete = new Document("requete","israel","hello, let's talk about the israel country");
-		Crawler.getIndexRequete().ajouterDocument(requete);
-		Crawler.indexInvRequete.calculerIdf(1);
-		Crawler.ajouterPoids(Crawler.indexRequete);
-		RechercheVectorielle.corpus = Crawler.getIndex().getDoc();
-		RechercheVectorielle.rechercher(requete);
-//		//fin test 
-	
-		//test booleen
-//		ParametreRechercheBoolIndexInv p1 = new ParametreRechercheBoolIndexInv("soldier", "negate");
-//		
-//		List<ParametreRechercheBoolIndexInv> parametres = new ArrayList<ParametreRechercheBoolIndexInv>();
-//		//parametres.add(p1);
-//		Set<Document> docs = RechercheBooleen.rechercheBooleen("negate soldier and korea and nuclear");
-//		System.out.println(docs.size());
-		//fin test boul
-		
 		System.out.println(Crawler.getIndex().getDoc().stream().count()+" fichiers");
 	}
 }

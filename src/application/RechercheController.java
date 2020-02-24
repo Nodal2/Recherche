@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -105,17 +106,17 @@ public class RechercheController implements Initializable{
 	} 
 	
 	private Collection<Document> modeleVectoriel(String requete) {
-		Document docRequete = new Document("requete", "", requete);
+		Document docRequete = new Document(0L,"requete", "", requete);
 		
-		Crawler.getIndexRequete().ajouterDocument(docRequete);
+		Crawler.getIndexRequete().ajouterDocument(docRequete.getId(),docRequete);
 		Crawler.indexInvRequete.calculerIdf(1);
-		System.out.println("Sauce");
 		Crawler.ajouterPoids(Crawler.indexRequete);
-		RechercheVectorielle.corpus = Crawler.getIndex().getDoc();
 		RechercheVectorielle.rechercher(docRequete);
-		
-		
-		return RechercheVectorielle.resultat;
+		TreeSet<Document> resultatDocs = new TreeSet<>();
+		for(Long id : RechercheVectorielle.resultatMap.keySet()) {
+			resultatDocs.add(Crawler.index.getMap().get(id));
+		}
+		return resultatDocs;
 	}
 	
 	private Set<Document> modeleBooleen(String requete) {
