@@ -3,6 +3,7 @@ package controleur;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
@@ -23,6 +24,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import modele.Crawler;
 import modele.Document;
+import modele.Index;
+import modele.IndexInverse;
 import modele.RechercheBooleen;
 import modele.RechercheVectorielle;
 import javafx.scene.control.Button;
@@ -101,6 +104,9 @@ public class RechercheController implements Initializable{
 	
 	private Collection<Document> modeleVectoriel(String requete) {
 		Document docRequete = new Document(0L,"requete", "", requete);
+		Crawler.indexRequete = new Index();
+		Crawler.indexInvRequete = new IndexInverse();
+		RechercheVectorielle.resultatMap = new HashMap<>();
 		Crawler.getIndexRequete().ajouterDocument(docRequete.getId(),docRequete);
 		Crawler.indexInvRequete.calculerIdf(1);
 		Crawler.ajouterPoids(Crawler.indexRequete);

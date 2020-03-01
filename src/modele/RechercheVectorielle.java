@@ -9,7 +9,8 @@ public class RechercheVectorielle{
 		for(Document doc : Crawler.index.getDoc()) {
 			double similarite = Outils.similarite(requete.getMapMots(), doc.getMapMots());
 			doc.setScore(similarite);
-			resultatMap.put(doc.getId(), doc.getScore());
+			if ( doc.getScore() >= 0.006)
+				resultatMap.put(doc.getId(), doc.getScore());
 		}
 	}
 }
