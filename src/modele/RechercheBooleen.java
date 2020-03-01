@@ -4,22 +4,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class RechercheBooleen {
 
 	public static Set<Document> documents = new HashSet<Document>();
 
 
-	public static Set<Document> rechercheBooleen(String requete) {
+	public static TreeSet<Document> rechercheBooleen(String requete) {
 		Map<String, Set<Document>> termes = Crawler.indexInv.getTermes();
-		Set<Document> docsRecherche = new HashSet<Document>();
+		Set<Document> docsRecherche = new HashSet<>();
+		TreeSet<Document> docsResultat = new TreeSet<>();
 		docsRecherche.addAll(documents);
 
 		List<String> motRequete = Outils.normalizeForBoolean(requete);
 
 		if(motRequete.size() == 1) {
 			if(motRequete.get(0).equals("and") || motRequete.get(0).equals("or") || motRequete.get(0).equals("not")) {
-				return docsRecherche;
+				docsResultat.addAll(docsRecherche);
+				return docsResultat;
 			}else {
 				docsRecherche.retainAll(termes.get(motRequete.get(0)));
 			}
@@ -70,10 +74,8 @@ public class RechercheBooleen {
 				break;
 			}
 		}
-		for(Document doc : docsRecherche) {
-			System.out.println(doc.getScore());
-		}
-		return docsRecherche;
+		docsResultat.addAll(docsRecherche);
+		return docsResultat;
 	}
 
 }

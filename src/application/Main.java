@@ -6,17 +6,10 @@ import javafx.stage.Stage;
 import modele.Crawler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
-import modele.Document;
-import modele.ParametreRechercheBoolIndexInv;
 import modele.RechercheBooleen;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import modele.RechercheVectorielle;
-import java.util.Set;
 
 public class Main extends Application {
 	@Override
@@ -47,6 +40,6 @@ public class Main extends Application {
 		
 		launch(args);
 		
-		System.out.println(Crawler.getIndex().getDoc().stream().count()+" fichiers");
+		System.out.println(Crawler.getIndex().getDoc().stream().count()+" fichiers chargés au total");
 	}
 }
