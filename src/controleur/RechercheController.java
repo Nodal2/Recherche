@@ -1,4 +1,4 @@
-package application;
+package controleur;
 
 import java.io.IOException;
 import java.net.URL;
@@ -101,7 +101,6 @@ public class RechercheController implements Initializable{
 	
 	private Collection<Document> modeleVectoriel(String requete) {
 		Document docRequete = new Document(0L,"requete", "", requete);
-		
 		Crawler.getIndexRequete().ajouterDocument(docRequete.getId(),docRequete);
 		Crawler.indexInvRequete.calculerIdf(1);
 		Crawler.ajouterPoids(Crawler.indexRequete);

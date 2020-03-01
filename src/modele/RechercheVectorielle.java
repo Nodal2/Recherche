@@ -1,9 +1,6 @@
 package modele;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class RechercheVectorielle{
 	public static HashMap<Long, Double> resultatMap = new HashMap<>();
@@ -15,7 +12,4 @@ public class RechercheVectorielle{
 			resultatMap.put(doc.getId(), doc.getScore());
 		}
 	}
-	
-	
-
 }
