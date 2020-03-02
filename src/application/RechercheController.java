@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,6 +53,8 @@ public class RechercheController implements Initializable{
 
 			@Override
 			public void handle(ActionEvent arg0) {
+				long startTime = System.nanoTime();
+				
 				String research = searchBar.getText();
 
 				if(!research.equals("")) {
@@ -72,7 +75,11 @@ public class RechercheController implements Initializable{
 							
 							break;
 						}
-
+						
+						long endTime   = System.nanoTime();
+						long totalTime = endTime - startTime;
+						System.out.println((double)totalTime / 1000000000.0 + " secondes");
+						
 						try {
 							FXMLLoader loader = new FXMLLoader();
 							loader.setLocation(getClass().getResource("/vue/vueListeArticle.fxml"));
