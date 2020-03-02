@@ -1,4 +1,4 @@
-package application;
+package controleur;
 
 import java.io.IOException;
 import java.net.URL;
@@ -93,7 +93,7 @@ public class ListeArticleController implements Initializable {
 			VBox doc = new VBox();
 			Text titre = new Text(), corps = new Text(), localisation = new Text();
 			
-			titre.setText(document.getTitre());
+			titre.setText(document.getTitre()+ "Score : "+ document.getScore());
 			
 			if(document.getCorp().length() > 100) {
 				corps.setText(document.getCorps().substring(0, 100)+"...");
@@ -149,7 +149,7 @@ public class ListeArticleController implements Initializable {
 			//acces au controller de la nouvelle view
 			PageDocumentController controllerDocument = loader.getController();
 
-			controllerDocument.loadDocument(titre, corps, localisation, docs);;
+			controllerDocument.loadDocument(titre, corps, localisation, docs);
 
 			Stage pageDocumentStage = (Stage) ((Node) arg0.getSource()).getScene().getWindow();
 			pageDocumentStage.setScene(pageDocumentScene);
