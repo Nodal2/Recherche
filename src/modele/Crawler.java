@@ -30,7 +30,7 @@ public class Crawler {
 		Crawler.indexInvRequete = new IndexInverse();
 
 		this.files = new ArrayList<Path>();
-		Path dir = Paths.get("fichiers/corpusRI");
+		Path dir = Paths.get("fichiers/corpusEval");
 		try {
 			listFiles(dir);
 		} catch (IOException e) {
