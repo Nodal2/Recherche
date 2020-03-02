@@ -28,7 +28,8 @@ public class Outils {
 	
 	public static List<String> normalizeForBoolean(String texte) {
 		List<String> mots = split(texte);
-		return removePonctuation(mots);
+		mots = removePonctuation(mots);
+		return lemmatize(mots);
 	}
 	
 	private static List<String> split(String texte) {

@@ -35,7 +35,12 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		//Code de lancement d'application et indexation des fichiers
+		long startTime = System.nanoTime();
 		Crawler cr = new Crawler();
+		long endTime   = System.nanoTime();
+		long totalTime = endTime - startTime;
+		System.out.println((double)totalTime / 1000000000.0 + " secondes");
+		
 		RechercheBooleen.documents = Crawler.getIndex().getDoc();
 		
 		launch(args);
