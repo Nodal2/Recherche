@@ -133,8 +133,7 @@ public class RechercheController implements Initializable{
 		list.removeAll(list);
 		
 		list.addAll("Booleen",
-					"Vectoriel",
-					"Probabiliste");
+					"Vectoriel");
 		
 		modele.getItems().addAll(list);
 	}
